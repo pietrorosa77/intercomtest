@@ -1,7 +1,29 @@
 What is a Closure?
 A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
 
+// More general function.
+function add(a, b) {
+  return a + b;
+}
 
+add(1, 2);  // 3
+add(10, 3); // 13
+
+// More specific function generator.
+function makeAdder(a) {
+  return function(b) {
+    return a + b;
+  };
+}
+
+// More specific functions.
+var addOne = makeAdder(1);
+addOne(2);  // 3
+addOne(3);  // 4
+
+var addTen = makeAdder(10);
+addTen(2);  // 12
+addTen(3);  // 13
 // Generic Partial Application Function
 // https://jsbin.com/biyupu/edit?html,js,output
 // https://gist.github.com/ericelliott/f0a8fd662111ea2f569e
