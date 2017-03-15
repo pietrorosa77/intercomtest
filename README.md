@@ -8,4 +8,5 @@
  - http://royal.pingdom.com/2010/06/18/the-software-behind-facebook/
  - https://code.facebook.com/posts/229861827208629/scaling-the-facebook-data-warehouse-to-300-pb/
  - http://www.thegeekstuff.com/2012/03/linux-threads-intro/?utm_source=tuicool
+ - https://github.com/nzakas/computer-science-in-javascript/tree/master/data-structures
 
