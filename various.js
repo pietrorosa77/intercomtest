@@ -44,3 +44,23 @@ public class Solution {
 	}
 }
 
+module.exports = { 
+	//param A : array of integers
+	//param B : integer
+	//return an integer
+	diffPossible : function(A, B){
+	    var size = A.length;
+	    var start = 0;
+	    var end =1;
+        while(start < size && end < size) {
+            if(end !== start && A[end] - A[start] === B){
+                return 1;
+            } else if (A[end] - A[start] < B)
+                end++;
+            else
+                start++;
+        }
+        return 0;
+	}
+};
+
