@@ -9,4 +9,5 @@
  - https://code.facebook.com/posts/229861827208629/scaling-the-facebook-data-warehouse-to-300-pb/
  - http://www.thegeekstuff.com/2012/03/linux-threads-intro/?utm_source=tuicool
  - https://github.com/nzakas/computer-science-in-javascript/tree/master/data-structures
-
+ - http://eloquentjavascript.net/1st_edition/appendix2.html
+ - http://www.geeksforgeeks.org/fundamentals-of-algorithms/#GraphAlgorithms
