@@ -857,3 +857,22 @@ static int BFSMATRICE(int [,]mat, Point src,
     // Return -1 if destination cannot be reached 
     return -1; 
 } 
+
+
+function findMissingIntBinary(input, left, right) {
+    const mid = Math.floor((left + right)/2); 
+    if (left === right - 1) {
+        if(left === 0 && input[0] === 0) return mid;
+        return mid + 1;
+    }
+    
+    
+    const element = input[mid];
+
+    console.log(`element is ${element} mid is ${mid}`);
+    if(element > mid) {
+        return findMissingIntBinary(input, left, mid)
+    } else {
+        return findMissingIntBinary(input, mid, right);
+    }
+}
