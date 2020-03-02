@@ -708,6 +708,74 @@ coin change
 if(amount>coiin)
 	t[amount] = t[amount] + t[amount-coin]
 
+static long coinChange(int []S, int m, int n) 
+    { 
+        //Time complexity of this function: O(mn) 
+        //Space Complexity of this function: O(n) 
+  
+        // table[i] will be storing the number of solutions 
+        // for value i. We need n+1 rows as the table is 
+        // constructed in bottom up manner using the base 
+        // case (n = 0) 
+        int[] table = new int[n+1]; 
+  
+        // Initialize all table values as 0 
+        for(int i = 0; i < table.Length; i++)  
+        { 
+            table[i] = 0; 
+        } 
+  
+        // Base case (If given value is 0) 
+        table[0] = 1; 
+  
+        // Pick all coins one by one and update the table[] 
+        // values after the index greater than or equal to 
+        // the value of the picked coin 
+        for (int i = 0; i < m; i++) 
+            for (int j = S[i]; j <= n; j++) 
+                table[j] += table[j - S[i]]; 
+  
+        return table[n]; 
+    } 
+public class Knapsack {
+    public static void main(String args[]) {
+        int w = 10;
+        int n = 4;
+        int[] val = {10, 40, 30, 50};
+        int[] wt = {5, 4, 6, 3};
+
+        // Populate base cases
+        int[][] mat = new int[n + 1][w + 1];
+        for (int r = 0; r < w + 1; r++) {
+            mat[0][r] = 0;
+        }
+        for (int c = 0; c < n + 1; c++) {
+            mat[c][0] = 0;
+        }
+        
+        // Main logic
+        for (int item = 1; item <= n; item++) {
+            for (int capacity = 1; capacity <= w; capacity++) {
+                int maxValWithoutCurr = mat[item - 1][capacity]; // This is guaranteed to exist
+                int maxValWithCurr = 0; // We initialize this value to 0
+                
+                int weightOfCurr = wt[item - 1]; // We use item -1 to account for the extra row at the top
+                if (capacity >= weightOfCurr) { // We check if the knapsack can fit the current item
+                    maxValWithCurr = val[item - 1]; // If so, maxValWithCurr is at least the value of the current item
+                    
+                    int remainingCapacity = capacity - weightOfCurr; // remainingCapacity must be at least 0
+                    maxValWithCurr += mat[item - 1][remainingCapacity]; // Add the maximum value obtainable with the remaining capacity
+                }
+                
+                mat[item][capacity] = Math.max(maxValWithoutCurr, maxValWithCurr); // Pick the larger of the two
+            }
+        }
+        
+        System.out.println(mat[n][w]); // Final answer
+        System.out.println(Arrays.deepToString(mat)); // Visualization of the table
+    }
+}
+
 public static void shuffle(int []card,  
                                int n) 
     { 
@@ -727,3 +795,65 @@ public static void shuffle(int []card,
               
         } 
     } 
+
+
+static int BFSMATRICE(int [,]mat, Point src, 
+                           Point dest) 
+{ 
+    // check source and destination cell 
+    // of the matrix have value 1 
+    if (mat[src.x, src.y] != 1 ||  
+        mat[dest.x, dest.y] != 1) 
+        return -1; 
+  
+    bool [,]visited = new bool[ROW, COL]; 
+      
+    // Mark the source cell as visited 
+    visited[src.x, src.y] = true; 
+  
+    // Create a queue for BFS 
+    Queue<queueNode> q = new Queue<queueNode>(); 
+      
+    // Distance of source cell is 0 
+    queueNode s = new queueNode(src, 0); 
+    q.Enqueue(s); // Enqueue source cell 
+  
+    // Do a BFS starting from source cell 
+    while (q.Count != 0) 
+    { 
+        queueNode curr = q.Peek(); 
+        Point pt = curr.pt; 
+  
+        // If we have reached the destination cell, 
+        // we are done 
+        if (pt.x == dest.x && pt.y == dest.y) 
+            return curr.dist; 
+  
+        // Otherwise dequeue the front cell  
+        // in the queue and enqueue 
+        // its adjacent cells 
+        q.Dequeue(); 
+  
+        for (int i = 0; i < 4; i++) 
+        { 
+            int row = pt.x + rowNum[i]; 
+            int col = pt.y + colNum[i]; 
+              
+            // if adjacent cell is valid, has path  
+            // and not visited yet, enqueue it. 
+            if (isValid(row, col) &&  
+                    mat[row, col] == 1 &&  
+               !visited[row, col]) 
+            { 
+                // mark cell as visited and enqueue it 
+                visited[row, col] = true; 
+                queueNode Adjcell = new queueNode(new Point(row, col), 
+                                                      curr.dist + 1 ); 
+                q.Enqueue(Adjcell); 
+            } 
+        } 
+    } 
+  
+    // Return -1 if destination cannot be reached 
+    return -1; 
+} 
